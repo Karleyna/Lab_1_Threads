@@ -45,7 +45,8 @@ namespace Lab_1_Threads
                 threads.Add(thread);
                 threads[i].Name = "Поток номер " + (i + 1);
                 threads[i].Start(arr);
-                threads[i].Join();
+                if (threadCount==1)
+                threads[0].Join();
             }
 
             while (elemsOut != 0) //проверка остатка в массиве чисел при распределении по потокам
@@ -59,10 +60,11 @@ namespace Lab_1_Threads
 
                         List<int> arr = Array.GetRange(0, elemsOut);
                         Array.RemoveRange(0, elemsOut);
-                        threads.RemoveAt(i);
+                        //threads.RemoveAt(i);
 
-                        Thread thread = new Thread(solution);
-                        threads.Insert(i, thread);
+                        // Thread thread = new Thread(solution);
+                        //threads.Insert(i, thread);
+                        threads[i] = new Thread(solution);
                         threads[i].Name = "Поток номер " + (i + 1);
                         threads[i].Start(arr);
                         //threads[i].Join();
